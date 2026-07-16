@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="MD阅读器">
+  <meta name="theme-color" content="#ffffff" id="metaTheme">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <title>MD 阅读器</title>
+</head>
+<body data-theme="light">
+  <header class="topbar">
+    <div class="brand" id="brand">MD 阅读器</div>
+    <div class="actions">
+      <button id="openBtn" class="btn">打开文件</button>
+      <button id="themeBtn" class="btn icon-btn" aria-label="切换明暗主题" title="切换明暗主题">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="reader" class="reader">
+    <div id="empty" class="empty">
+      <div class="empty-emoji">📄</div>
+      <p class="empty-title">还没有打开文档</p>
+      <p class="empty-hint">点击右上角「打开文件」，从 文件 App / iCloud 云盘 选择 .md 或 .html</p>
+    </div>
+
+    <article id="content" class="content markdown-body" hidden></article>
+    <iframe id="htmlView" class="html-view" hidden sandbox="allow-same-origin allow-scripts"></iframe>
+  </main>
+
+  <input type="file" id="fileInput" accept=".md,.markdown,.html,.htm,text/markdown,text/html" hidden>
+
+  <script src="vendor/marked.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
