@@ -41,6 +41,11 @@ body[data-theme="dark"] {
 
 * { box-sizing: border-box; }
 
+/* 关键修复：保证带 hidden 属性的元素真正隐藏。
+   否则 .empty { display:flex } 会盖过浏览器默认的 [hidden]{display:none}，
+   导致打开文档后“主页面”仍然显示在上方。 */
+[hidden] { display: none !important; }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -130,10 +135,12 @@ body {
 .empty-hint { font-size: 14px; margin: 0; max-width: 320px; }
 
 .content {
+  display: block;
   max-width: 820px;
   margin: 0 auto;
   padding: 28px 22px calc(env(safe-area-inset-bottom, 0px) + 48px);
   word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .html-view {
@@ -231,3 +238,27 @@ body {
 
 /* 行内数学/高亮等保持朴素即可 */
 .markdown-body mark { background: var(--selection); color: inherit; padding: 0 0.2em; border-radius: 3px; }
+
+/* 代码块在手机上可横向滚动，避免撑破排版 */
+.markdown-body pre,
+.markdown-body table {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---------------- 移动端排版优化 ---------------- */
+@media (max-width: 600px) {
+  body { font-size: 16px; line-height: 1.7; }
+
+  .content {
+    padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 40px);
+  }
+
+  .markdown-body h1 { font-size: 1.6em; }
+  .markdown-body h2 { font-size: 1.4em; }
+  .markdown-body h3 { font-size: 1.2em; }
+  .markdown-body h4 { font-size: 1.08em; }
+
+  /* 列表/引用在窄屏更紧凑 */
+  .markdown-body ul, .markdown-body ol { padding-left: 1.3em; }
+  .markdown-body blockquote { padding: 0.3em 0.9em; }
+}
